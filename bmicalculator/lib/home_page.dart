@@ -19,8 +19,16 @@ const maleText = Text(
   "MALE",
   style: TextStyle(color: Color(0xff8d8e98), fontSize: 20),
 );
-const femaleText =
-    Text("FEMALE", style: TextStyle(color: Color(0xff8d8e98), fontSize: 20));
+const femaleText = Text(
+  "FEMALE",
+  style: TextStyle(color: Color(0xff8d8e98), fontSize: 20),
+);
+
+enum GenderType {
+  male,
+  female,
+}
+GenderType? selectedGender;
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -52,11 +60,13 @@ class _HomePageState extends State<HomePage> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              updateState(1);
+                              selectedGender = GenderType.male;
                             });
                           },
                           child: genderCard(
-                              colour: maleCardColor,
+                              colour: selectedGender == GenderType.male
+                                  ? activeCardColor
+                                  : inActiveCardColor,
                               genderIcon: maleIcon,
                               genderText: maleText),
                         ),
@@ -65,11 +75,13 @@ class _HomePageState extends State<HomePage> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              updateState(2);
+                              selectedGender = GenderType.female;
                             });
                           },
                           child: genderCard(
-                              colour: femaleCardColor,
+                              colour: selectedGender == GenderType.female
+                                  ? activeCardColor
+                                  : inActiveCardColor,
                               genderIcon: femaleIcon,
                               genderText: femaleText),
                         ),
@@ -118,22 +130,5 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
-  }
-
-  void updateState(int x) {
-    if (x == 1) {
-      maleCardColor = activeCardColor;
-      femaleCardColor = inActiveCardColor;
-    } else {
-      maleCardColor = inActiveCardColor;
-      femaleCardColor = activeCardColor;
-    }
-    if (x == 2) {
-      femaleCardColor = activeCardColor;
-      maleCardColor = inActiveCardColor;
-    } else {
-      femaleCardColor = inActiveCardColor;
-      maleCardColor = activeCardColor;
-    }
   }
 }
