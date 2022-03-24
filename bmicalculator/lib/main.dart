@@ -12,7 +12,7 @@ class BmiCalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const HomePage(),
+      home: HomePage(),
       theme: ThemeData.dark().copyWith(
         primaryColor: const Color(0xff0a0e21),
         scaffoldBackgroundColor: const Color(0xff0a0e21),
