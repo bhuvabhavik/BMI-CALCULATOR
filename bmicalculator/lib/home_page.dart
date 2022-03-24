@@ -14,7 +14,63 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("BMI CALCULATOR"),
       ),
-      body: Center(child: Text("This is BMI CALCULATOR")),
+      body: Column(
+        children: [
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: ReusableCard(
+                    colour: Color(0xff1e1d33),
+                  ),
+                ),
+                Expanded(
+                  child: ReusableCard(
+                    colour: Color(0xff1e1d33),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ReusableCard(
+              colour: Color(0xff1e1d33),
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: ReusableCard(
+                    colour: Color(0xff1e1d33),
+                  ),
+                ),
+                Expanded(
+                  child: ReusableCard(
+                    colour: Color(0xff1e1d33),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ReusableCard extends StatelessWidget {
+  late Color colour;
+  ReusableCard({Key? key, required this.colour}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: colour,
+        borderRadius: BorderRadius.circular(25),
+      ),
     );
   }
 }
