@@ -1,15 +1,11 @@
+import 'package:bmicalculator/reuseable_gender_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+import 'reuseable_card.dart';
 
 const double bottomContainerHeight = 80;
 const Color activeCardColor = Color(0xff1e1d33);
+const Color inActiveCardColor = Color(0xff111328);
 const bottomContainerColour = Color(0xffef1555);
 const maleIcon = Icon(
   FontAwesomeIcons.mars,
@@ -26,7 +22,17 @@ const maleText = Text(
 const femaleText =
     Text("FEMALE", style: TextStyle(color: Color(0xff8d8e98), fontSize: 20));
 
+class HomePage extends StatefulWidget {
+  HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
 class _HomePageState extends State<HomePage> {
+  Color maleCardColor = inActiveCardColor;
+  Color femaleCardColor = inActiveCardColor;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,12 +49,30 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: genderCard(
-                            genderIcon: maleIcon, genderText: maleText),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              updateState(1);
+                            });
+                          },
+                          child: genderCard(
+                              colour: maleCardColor,
+                              genderIcon: maleIcon,
+                              genderText: maleText),
+                        ),
                       ),
                       Expanded(
-                        child: genderCard(
-                            genderIcon: femaleIcon, genderText: femaleText),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              updateState(2);
+                            });
+                          },
+                          child: genderCard(
+                              colour: femaleCardColor,
+                              genderIcon: femaleIcon,
+                              genderText: femaleText),
+                        ),
                       ),
                     ],
                   ),
@@ -96,40 +120,20 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  ReusableCard genderCard(
-      {required Icon genderIcon, required Text genderText}) {
-    return ReusableCard(
-      cardWidget: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          genderIcon,
-          SizedBox(
-            height: 15,
-          ),
-          genderText
-        ],
-      ),
-      colour: activeCardColor,
-    );
-  }
-}
-
-class ReusableCard extends StatelessWidget {
-  final Color colour;
-  final Widget cardWidget;
-
-  const ReusableCard({Key? key, required this.colour, required this.cardWidget})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: cardWidget,
-      margin: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: colour,
-        borderRadius: BorderRadius.circular(25),
-      ),
-    );
+  void updateState(int x) {
+    if (x == 1) {
+      maleCardColor = activeCardColor;
+      femaleCardColor = inActiveCardColor;
+    } else {
+      maleCardColor = inActiveCardColor;
+      femaleCardColor = activeCardColor;
+    }
+    if (x == 2) {
+      femaleCardColor = activeCardColor;
+      maleCardColor = inActiveCardColor;
+    } else {
+      femaleCardColor = inActiveCardColor;
+      maleCardColor = activeCardColor;
+    }
   }
 }
