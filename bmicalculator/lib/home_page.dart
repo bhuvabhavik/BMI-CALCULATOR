@@ -1,28 +1,10 @@
+import 'dart:math';
+
 import 'package:bmicalculator/reuseable_gender_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reuseable_card.dart';
-
-const double bottomContainerHeight = 80;
-const Color activeCardColor = Color(0xff1e1d33);
-const Color inActiveCardColor = Color(0xff111328);
-const bottomContainerColour = Color(0xffef1555);
-const maleIcon = Icon(
-  FontAwesomeIcons.mars,
-  size: 80,
-);
-const femaleIcon = Icon(
-  FontAwesomeIcons.venus,
-  size: 80,
-);
-const maleText = Text(
-  "MALE",
-  style: TextStyle(color: Color(0xff8d8e98), fontSize: 20),
-);
-const femaleText = Text(
-  "FEMALE",
-  style: TextStyle(color: Color(0xff8d8e98), fontSize: 20),
-);
+import 'constants.dart';
 
 enum GenderType {
   male,
@@ -38,8 +20,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Color maleCardColor = inActiveCardColor;
-  Color femaleCardColor = inActiveCardColor;
+  Color maleCardColor = kInActiveCardColor;
+  Color femaleCardColor = kInActiveCardColor;
+  late int height = 120;
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +48,10 @@ class _HomePageState extends State<HomePage> {
                           },
                           child: genderCard(
                               colour: selectedGender == GenderType.male
-                                  ? activeCardColor
-                                  : inActiveCardColor,
-                              genderIcon: maleIcon,
-                              genderText: maleText),
+                                  ? kActiveCardColor
+                                  : kInActiveCardColor,
+                              genderIcon: kMaleIcon,
+                              genderText: kMaleText),
                         ),
                       ),
                       Expanded(
@@ -80,10 +63,10 @@ class _HomePageState extends State<HomePage> {
                           },
                           child: genderCard(
                               colour: selectedGender == GenderType.female
-                                  ? activeCardColor
-                                  : inActiveCardColor,
-                              genderIcon: femaleIcon,
-                              genderText: femaleText),
+                                  ? kActiveCardColor
+                                  : kInActiveCardColor,
+                              genderIcon: kFemaleIcon,
+                              genderText: kFemaleText),
                         ),
                       ),
                     ],
@@ -93,7 +76,47 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            child: ReusableCard(colour: activeCardColor, cardWidget: Column()),
+            child: ReusableCard(
+                colour: kActiveCardColor,
+                cardWidget: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Center(
+                      child: Text(
+                        'HEIGHT',
+                        style: kTextStyle,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(
+                          height.toString(),
+                          style: kBigNumberBoldText,
+                        ),
+                        const Text(
+                          ' cm',
+                          style: kTextStyle,
+                        ),
+                      ],
+                    ),
+                    Slider(
+                      value: height.toDouble(),
+                      min: 120,
+                      max: 220,
+                      activeColor: Color(0xffeb1555),
+                      inactiveColor: Color(0xff8d8e98),
+                      onChanged: (double newValue) {
+                        setState(() {
+                          height = newValue.toInt();
+                        });
+                      },
+                    )
+                  ],
+                )),
           ),
           Expanded(
             child: Row(
@@ -101,20 +124,20 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: ReusableCard(
                     cardWidget: Column(),
-                    colour: activeCardColor,
+                    colour: kActiveCardColor,
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
                     cardWidget: Column(),
-                    colour: activeCardColor,
+                    colour: kActiveCardColor,
                   ),
                 ),
               ],
             ),
           ),
           Container(
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
             width: double.infinity,
             child: const Center(
               child: Text(
@@ -125,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            color: bottomContainerColour,
+            color: kBottomContainerColour,
           )
         ],
       ),
