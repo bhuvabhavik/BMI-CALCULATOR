@@ -22,7 +22,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Color maleCardColor = kInActiveCardColor;
   Color femaleCardColor = kInActiveCardColor;
-  late int height = 120;
+  int height = 120;
+  int weight = 60;
 
   @override
   Widget build(BuildContext context) {
@@ -131,13 +132,51 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    cardWidget: Column(),
+                    cardWidget: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'WEIGHT',
+                          style: kTextStyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: kBigNumberBoldText,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  weight = weight - 1;
+                                  print(weight);
+                                });
+                              },
+                              child: RoundIconButton(
+                                icon: Icons.remove,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            RoundIconButton(
+                              icon: Icons.add_outlined,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                     colour: kActiveCardColor,
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    cardWidget: Column(),
+                    cardWidget: Column(
+                      children: [
+                        Text("data"),
+                      ],
+                    ),
                     colour: kActiveCardColor,
                   ),
                 ),
@@ -160,6 +199,26 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  RoundIconButton({required this.icon});
+
+  IconData icon;
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(icon),
+      constraints: BoxConstraints.tightFor(
+        height: 56,
+        width: 56,
+      ),
+      padding: EdgeInsets.all(0),
+      shape: CircleBorder(),
+      onPressed: () {},
+      fillColor: Color(0xff4c4f5e),
     );
   }
 }
