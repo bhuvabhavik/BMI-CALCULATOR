@@ -221,7 +221,7 @@ class _HomePageState extends State<HomePage> {
             width: double.infinity,
             child: const Center(
               child: Text(
-                "Calculate",
+                "CALCULATE YOUR BMI",
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
