@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:bmicalculator/reuseable_gender_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reuseable_card.dart';
@@ -31,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text("BMI CALCULATOR")),
-        backgroundColor: const Color(0xaa120e21),
+        //backgroundColor: const Color(0xaa120e21),
       ),
       body: Column(
         children: [
@@ -216,19 +217,25 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Container(
-            height: kBottomContainerHeight,
-            width: double.infinity,
-            child: const Center(
-              child: Text(
-                "CALCULATE YOUR BMI",
-                style: TextStyle(
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/resultPage');
+            },
+            child: Container(
+              height: kBottomContainerHeight,
+              width: double.infinity,
+              child: const Center(
+                child: Text(
+                  "CALCULATE YOUR BMI",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold),
+                    fontSize: 25,
+                  ),
+                ),
               ),
+              color: kBottomContainerColour,
             ),
-            color: kBottomContainerColour,
           )
         ],
       ),
