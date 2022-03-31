@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   Color femaleCardColor = kInActiveCardColor;
   int height = 120;
   int weight = 60;
+  int age = 15;
 
   @override
   Widget build(BuildContext context) {
@@ -175,8 +176,38 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: ReusableCard(
                     cardWidget: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("data"),
+                        Text(
+                          "AGE",
+                          style: kTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kBigNumberBoldText,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: () {
+                                  setState(() {
+                                    age--;
+                                  });
+                                }),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            RoundIconButton(
+                                icon: FontAwesomeIcons.plus,
+                                onPressed: () {
+                                  setState(() {
+                                    age++;
+                                  });
+                                }),
+                          ],
+                        )
                       ],
                     ),
                     colour: kActiveCardColor,
