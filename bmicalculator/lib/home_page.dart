@@ -29,8 +29,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: const Text("BMI CALCULATOR")),
-        backgroundColor: Color(0xaa120e21),
+        title: const Center(child: Text("BMI CALCULATOR")),
+        backgroundColor: const Color(0xaa120e21),
       ),
       body: Column(
         children: [
@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                     cardWidget: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           'WEIGHT',
                           style: kTextStyle,
                         ),
@@ -146,22 +146,24 @@ class _HomePageState extends State<HomePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            GestureDetector(
-                              onTap: () {
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: () {
                                 setState(() {
-                                  weight = weight - 1;
-                                  print(weight);
+                                  weight--;
                                 });
                               },
-                              child: RoundIconButton(
-                                icon: Icons.remove,
-                              ),
                             ),
                             SizedBox(
                               width: 10,
                             ),
                             RoundIconButton(
-                              icon: Icons.add_outlined,
+                              icon: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
                             ),
                           ],
                         ),
@@ -204,9 +206,10 @@ class _HomePageState extends State<HomePage> {
 }
 
 class RoundIconButton extends StatelessWidget {
-  RoundIconButton({required this.icon});
+  RoundIconButton({required this.icon, required this.onPressed});
 
-  IconData icon;
+  final IconData icon;
+  final Function() onPressed;
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
@@ -216,9 +219,10 @@ class RoundIconButton extends StatelessWidget {
         width: 56,
       ),
       padding: EdgeInsets.all(0),
+      elevation: 0,
       shape: CircleBorder(),
-      onPressed: () {},
       fillColor: Color(0xff4c4f5e),
+      onPressed: onPressed,
     );
   }
 }
