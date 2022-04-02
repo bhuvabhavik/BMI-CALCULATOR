@@ -1,11 +1,12 @@
 import 'dart:math';
-
+import 'package:bmicalculator/results_page.dart';
 import 'package:bmicalculator/reuseable_gender_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reuseable_card.dart';
 import 'constants.dart';
+import 'calculator_brain.dart';
 
 enum GenderType {
   male,
@@ -219,7 +220,19 @@ class _HomePageState extends State<HomePage> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/resultPage');
+              CalculatorBrain calc =
+                  CalculatorBrain(height: height, weight: weight);
+              String bmiNumber = calc.calculateBmi();
+              String bmiResult = calc.getResult();
+              String bmiInterpretation = calc.getInterPretation();
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ResultsPage(
+                          bmiResult: bmiResult,
+                          interpretation: bmiInterpretation,
+                          resultText: bmiNumber)));
             },
             child: Container(
               height: kBottomContainerHeight,
